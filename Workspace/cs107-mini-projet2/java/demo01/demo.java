@@ -27,6 +27,7 @@ public class demo implements Game{
 	@Override
 	public void update(float deltaTime) {
 		// TODO Auto-generated method stub
+		;
 		
 	}
 
@@ -34,9 +35,7 @@ public class demo implements Game{
 	public int getFrameRate() {
 		// TODO Auto-generated method stub
 		return 24;
-	}
-
-	
+	}	
 	
 	public static void main(String[] args) {
 		demo demo01 = new demo();
