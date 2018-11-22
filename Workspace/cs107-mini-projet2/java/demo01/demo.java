@@ -25,12 +25,13 @@ public class demo implements Game {
 		this.window = window;
 		this.filesystem = fileSystem;
 
-		//Transform viewTransform = Transform.I.scaled(1).translated(new Vector(-0.2f, 0.0f));
-		//window.setRelativeTransform(viewTransform);
+		// Transform viewTransform = Transform.I.scaled(1).translated(new Vector(-0.2f,
+		// 0.0f));
+		// window.setRelativeTransform(viewTransform);
 
 		A1 = new GraphicsEntity(Vector.ZERO, new ShapeGraphics(new Circle(radius), null, Color.RED, 0.005f));
 
-		MR = new MovingRock(new Vector(0.05f, 0.05f), "I am a rock");
+		MR = new MovingRock(Vector.ZERO, "I am a rock");
 		return true;
 	}
 
