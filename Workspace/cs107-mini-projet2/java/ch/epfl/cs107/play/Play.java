@@ -8,7 +8,7 @@ import ch.epfl.cs107.play.io.ResourceFileSystem;
 import ch.epfl.cs107.play.io.XMLTexts;
 import ch.epfl.cs107.play.window.Window;
 import ch.epfl.cs107.play.window.swing.SwingWindow;
-
+import demo01.demo;
 
 /**
  * Main entry point.
@@ -16,10 +16,11 @@ import ch.epfl.cs107.play.window.swing.SwingWindow;
 public class Play {
 
 	/** One second in nano second */
-    private static final float ONE_SEC = 1E9f;
+	private static final float ONE_SEC = 1E9f;
 
 	/**
 	 * Main entry point.
+	 * 
 	 * @param args (Array of String): ignored
 	 */
 	public static void main(String[] args) {
@@ -27,8 +28,9 @@ public class Play {
 		// Define cascading file system
 		final FileSystem fileSystem = new ResourceFileSystem(DefaultFileSystem.INSTANCE);
 
-        // Create a demo game and initialize corresponding texts
-		final Game game = new Enigme();
+		// Create a demo game and initialize corresponding texts
+		// final Game game = new Enigme();
+		final Game game = new demo();
 		XMLTexts.initialize(fileSystem, "strings/enigme_fr.xml");
 
 		// Use Swing display
@@ -39,7 +41,7 @@ public class Play {
 			if (game.begin(window, fileSystem)) {
 
 				// Use system clock to keep track of time progression
-                long currentTime = System.nanoTime();
+				long currentTime = System.nanoTime();
 				long lastTime;
 				final float frameDuration = ONE_SEC / game.getFrameRate();
 
@@ -47,25 +49,25 @@ public class Play {
 				while (!window.isCloseRequested()) {
 
 					// Compute time interval
-                    lastTime = currentTime;
-                    currentTime = System.nanoTime();
+					lastTime = currentTime;
+					currentTime = System.nanoTime();
 					float deltaTime = (currentTime - lastTime);
 
-                    try {
-                        int timeDiff = Math.max(0, (int) (frameDuration - deltaTime));
-                        Thread.sleep((int) (timeDiff / 1E6), (int) (timeDiff % 1E6));
-                    } catch (InterruptedException e) {
-                        System.out.println("Thread sleep interrupted");
-                    }
+					try {
+						int timeDiff = Math.max(0, (int) (frameDuration - deltaTime));
+						Thread.sleep((int) (timeDiff / 1E6), (int) (timeDiff % 1E6));
+					} catch (InterruptedException e) {
+						System.out.println("Thread sleep interrupted");
+					}
 
-                    currentTime = System.nanoTime();
-                    deltaTime = (currentTime - lastTime) / ONE_SEC;
+					currentTime = System.nanoTime();
+					deltaTime = (currentTime - lastTime) / ONE_SEC;
 
-                    // Let the game do its stuff
-                    game.update(deltaTime);
+					// Let the game do its stuff
+					game.update(deltaTime);
 
-                    // Render and update input
-                    window.update();
+					// Render and update input
+					window.update();
 				}
 			}
 			game.end();
