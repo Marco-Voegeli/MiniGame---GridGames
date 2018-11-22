@@ -38,7 +38,8 @@ public class demo implements Game{
 
 	
 	
-	
-	
+	public static void main(String[] args) {
+		demo demo01 = new demo();
+	}
 	
 }
