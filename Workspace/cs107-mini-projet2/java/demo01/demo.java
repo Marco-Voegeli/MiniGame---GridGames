@@ -55,7 +55,7 @@ public class demo implements Game {
 		Keyboard keyboard = window.getKeyboard();
 		Button[] Arrows = { keyboard.get(Keyboard.UP), keyboard.get(Keyboard.DOWN), keyboard.get(Keyboard.LEFT),
 				keyboard.get(Keyboard.RIGHT) };
-		TextGraphics crash = new TextGraphics("BOUM!!!!", 0.5f, Color.RED);
+		TextGraphics crash = new TextGraphics("BOUM!!!!", 0.08f, Color.RED);
 
 		A1.draw(window);
 		MR.draw(window);
@@ -72,12 +72,12 @@ public class demo implements Game {
 		} else if (Arrows[3].isDown()) {
 			MR.right();
 		}
-		float cOMx = MR.getPosition().x + MovingRock.getDimx() / 2;
-		float cOMy = MR.getPosition().x + MovingRock.getDimy() / 2;
-		if (cOMx <= A1.getPosition().x + radius && cOMy <= A1.getPosition().y + radius
-				&& cOMx >= A1.getPosition().x - radius && cOMy >= A1.getPosition().y - radius) {
-			crash.draw(window);
-		}
+//		Vector cOM = new Vector(MR.getPosition().x + MovingRock.getDimx() / 2,
+//				MR.getPosition().y + MovingRock.getDimy() / 2);
+//		if (cOM.x <= A1.getPosition().x + radius && cOM.y <= A1.getPosition().y + radius
+//				&& cOM.x >= A1.getPosition().x - radius && cOM.y >= A1.getPosition().y - radius) {
+//			crash.draw(window);
+//		}
 
 	}
 
