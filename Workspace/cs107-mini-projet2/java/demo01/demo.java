@@ -17,10 +17,11 @@ import demo01.actor.MovingRock;
 
 public class demo implements Game {
 	private Actor A1;
-	private float radius = 0.2f;
+	private float radius = 0.1f;
 	private Window window;
 	private FileSystem filesystem;
 	private MovingRock MR;
+	private float thickness = 0.005f;
 
 	@Override
 	public boolean begin(Window window, FileSystem fileSystem) {
@@ -30,7 +31,7 @@ public class demo implements Game {
 //		Transform viewTransform = Transform.I.scaled(1).translated(new Vector(0.0f, 0.0f));
 //		window.setRelativeTransform(viewTransform);
 
-		A1 = new GraphicsEntity(Vector.ZERO, new ShapeGraphics(new Circle(radius), null, Color.RED, 0.005f));
+		A1 = new GraphicsEntity(Vector.ZERO, new ShapeGraphics(new Circle(radius), null, Color.RED, thickness));
 		MR = new MovingRock(new Vector(0.2f, 0.3f), "I am a rock");
 
 		return true;
@@ -72,13 +73,9 @@ public class demo implements Game {
 		} else if (Arrows[3].isDown()) {
 			MR.right();
 		}
-//		Vector cOM = new Vector(MR.getPosition().x + MovingRock.getDimx() / 2,
-//				MR.getPosition().y + MovingRock.getDimy() / 2);
-//		if (cOM.x <= A1.getPosition().x + radius && cOM.y <= A1.getPosition().y + radius
-//				&& cOM.x >= A1.getPosition().x - radius && cOM.y >= A1.getPosition().y - radius) {
-//			crash.draw(window);
-//		}
-
+		if (crash(MR)) {
+			crash.draw(window);
+		}
 	}
 
 	@Override
@@ -87,4 +84,19 @@ public class demo implements Game {
 		return 24;
 	}
 
+	public boolean crash(MovingRock MR) {
+
+		float distMin = (float) Math
+				.sqrt(MR.getPosition().x * MR.getPosition().x + MR.getPosition().y * MR.getPosition().y);
+		float distAvg = (float) Math
+				.sqrt((MR.getPosition().x + MR.getDimx() / 2) * (MR.getPosition().x + MR.getDimx() / 2)
+						+ (MR.getPosition().y + MR.getDimy() / 2) * (MR.getPosition().y + MR.getDimy() / 2));
+		if (distAvg < radius + MR.getDimx() / 2 + thickness) {
+
+			return true;
+		}
+
+		return false;
+
+	}
 }
