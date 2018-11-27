@@ -9,121 +9,166 @@ import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 
+import java.util.LinkedList;
 import java.util.List;
 
-
 /**
- * Area is a "Part" of the AreaGame. It is characterized by its AreaBehavior and a List of Actors
+ * Area is a "Part" of the AreaGame. It is characterized by its AreaBehavior and
+ * a List of Actors
  */
 public abstract class Area implements Playable {
+	private Window window;
+	private FileSystem fileSystem;
+	private List<Actor> actors;
 
-    // Context objects
-    // TODO implements me #PROJECT #TUTO
+	// Context objects
+	// TODO implements me #PROJECT #TUTO
 
-	/** @return (float): camera scale factor, assume it is the same in x and y direction */
-    public abstract float getCameraScaleFactor();
-    
-    /**
-     * Add an actor to the actors list
-     * @param a (Actor): the actor to add, not null
-     * @param forced (Boolean): if true, the method ends
-     */
-    private void addActor(Actor a, boolean forced) {
-        // TODO implements me #PROJECT #TUTO
-    }
+	/**
+	 * @return (float): camera scale factor, assume it is the same in x and y
+	 *         direction
+	 */
+	public abstract float getCameraScaleFactor();
 
-    /**
-     * Remove an actor form the actor list
-     * @param a (Actor): the actor to remove, not null
-     * @param forced (Boolean): if true, the method ends
-     */
-    private void removeActor(Actor a, boolean forced){
-        // TODO implements me #PROJECT #TUTO
-    }
+	/**
+	 * Add an actor to the actors list
+	 * 
+	 * @param a      (Actor): the actor to add, not null
+	 * @param forced (Boolean): if true, the method ends
+	 */
+	public boolean vetoFromGrid() {
 
-    /**
-     * Register an actor : will be added at next update
-     * @param a (Actor): the actor to register, not null
-     * @return (boolean): true if the actor is correctly registered
-     */
-    public final boolean registerActor(Actor a){
-        // TODO implements me #PROJECT #TUTO
-        return false;
-    }
+	}
 
-    /**
-     * Unregister an actor : will be removed at next update
-     * @param a (Actor): the actor to unregister, not null
-     * @return (boolean): true if the actor is correctly unregistered
-     */
-    public final boolean unregisterActor(Actor a){
-        // TODO implements me #PROJECT #TUTO
-        return false;
-    }
+	private void addActor(Actor a, boolean forced) {
+		// TODO implements me #PROJECT #TUTO
+		// Here decisions at the area level to decide if an actor // must be added or
+		// not
+		boolean veto = vetoFromGrid();
 
-    /**
-     * Getter for the area width
-     * @return (int) : the width in number of cols
-     */
-    public final int getWidth(){
-        // TODO implements me #PROJECT #TUTO
-        return 0;
-    }
+		if (veto) {
+			boolean errorOccured = !actors.add(a);
+			if (errorOccured) { // If there was a probelm with adding
+				System.out.println("Actor " + a + " cannot be" + "completely added, so remove it from where it");
+				removeActor(a, true);
+			}
+			else
 
-    /**
-     * Getter for the area height
-     * @return (int) : the height in number of rows
-     */
-    public final int getHeight(){
-        // TODO implements me #PROJECT #TUTO
-        return 0;
-    }
+		}
 
-    /** @return the Window Keyboard for inputs */
-    public final Keyboard getKeyboard () {
-        // TODO implements me #PROJECT #TUTO
-        return null;
-    }
+		else {
+			actors.add(a);
+		}
 
-    /// Area implements Playable
+	}
 
-    @Override
-    public boolean begin(Window window, FileSystem fileSystem) {
-        // TODO implements me #PROJECT #TUTO
-        return true;
-    }
+	/**
+	 * Remove an actor form the actor list
+	 * 
+	 * @param a      (Actor): the actor to remove, not null
+	 * @param forced (Boolean): if true, the method ends
+	 */
+	private void removeActor(Actor a, boolean forced) {
+		// TODO implements me #PROJECT #TUTO
+		if (forced) {
+			actors.remove(a);
+		}
 
-    /**
-     * Resume method: Can be overridden
-     * @param window (Window): display context, not null
-     * @param fileSystem (FileSystem): given file system, not null
-     * @return (boolean) : if the resume succeed, true by default
-     */
-    public boolean resume(Window window, FileSystem fileSystem){
-        return true;
-    }
+	}
 
-    @Override
-    public void update(float deltaTime) {
-        // TODO implements me #PROJECT #TUTO
-    }
+	/**
+	 * Register an actor : will be added at next update
+	 * 
+	 * @param a (Actor): the actor to register, not null
+	 * @return (boolean): true if the actor is correctly registered
+	 */
+	public final boolean registerActor(Actor a) {
+		// TODO implements me #PROJECT #TUTO
+		return false;
+	}
 
+	/**
+	 * Unregister an actor : will be removed at next update
+	 * 
+	 * @param a (Actor): the actor to unregister, not null
+	 * @return (boolean): true if the actor is correctly unregistered
+	 */
+	public final boolean unregisterActor(Actor a) {
+		// TODO implements me #PROJECT #TUTO
+		return false;
+	}
 
-    private void updateCamera () {
-        // TODO implements me #PROJECT #TUTO
-    }
+	/**
+	 * Getter for the area width
+	 * 
+	 * @return (int) : the width in number of cols
+	 */
+	public final int getWidth() {
+		// TODO implements me #PROJECT #TUTO
+		return 0;
+	}
 
-    /**
-     * Suspend method: Can be overridden, called before resume other
-     */
-    public void suspend(){
-        // Do nothing by default
-    }
+	/**
+	 * Getter for the area height
+	 * 
+	 * @return (int) : the height in number of rows
+	 */
+	public final int getHeight() {
+		// TODO implements me #PROJECT #TUTO
+		return 0;
+	}
 
+	/** @return the Window Keyboard for inputs */
+	public final Keyboard getKeyboard() {
+		// TODO implements me #PROJECT #TUTO
+		return null;
+	}
 
-    @Override
-    public void end() {
-        // TODO save the AreaState somewhere
-    }
+	/// Area implements Playable
+
+	@Override
+	public boolean begin(Window window, FileSystem fileSystem) {
+		// TODO implements me #PROJECT #TUTO
+		this.window = window;
+		this.fileSystem = fileSystem;
+		actors = new LinkedList<>();
+		return true;
+	}
+
+	/**
+	 * Resume method: Can be overridden
+	 * 
+	 * @param window     (Window): display context, not null
+	 * @param fileSystem (FileSystem): given file system, not null
+	 * @return (boolean) : if the resume succeed, true by default
+	 */
+	public boolean resume(Window window, FileSystem fileSystem) {
+		return true;
+	}
+
+	@Override
+	public void update(float deltaTime) {
+		for (Actor a : actors) {
+			a.update(deltaTime);
+			a.draw(window);
+		}
+		// TODO implements me #PROJECT #TUTO
+	}
+
+	private void updateCamera() {
+		// TODO implements me #PROJECT #TUTO
+	}
+
+	/**
+	 * Suspend method: Can be overridden, called before resume other
+	 */
+	public void suspend() {
+		// Do nothing by default
+	}
+
+	@Override
+	public void end() {
+		// TODO save the AreaState somewhere
+	}
 
 }

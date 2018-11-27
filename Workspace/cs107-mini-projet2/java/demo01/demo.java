@@ -19,14 +19,14 @@ public class demo implements Game {
 	private Actor A1;
 	private float radius = 0.1f;
 	private Window window;
-	private FileSystem filesystem;
+	private FileSystem fileSystem;
 	private MovingRock MR;
 	private float thickness = 0.005f;
 
 	@Override
 	public boolean begin(Window window, FileSystem fileSystem) {
 		this.window = window;
-		this.filesystem = fileSystem;
+		this.fileSystem = fileSystem;
 
 //		Transform viewTransform = Transform.I.scaled(1).translated(new Vector(0.0f, 0.0f));
 //		window.setRelativeTransform(viewTransform);
