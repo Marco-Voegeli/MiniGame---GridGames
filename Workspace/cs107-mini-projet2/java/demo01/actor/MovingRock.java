@@ -13,11 +13,11 @@ public class MovingRock extends GraphicsEntity {
 	private final static float dimx = 0.1f;
 	private final static float dimy = 0.1f;
 
-	public static float getDimx() {
+	public float getDimx() {
 		return dimx;
 	}
 
-	public static float getDimy() {
+	public float getDimy() {
 		return dimy;
 	}
 

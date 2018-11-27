@@ -20,6 +20,8 @@ public abstract class Area implements Playable {
 	private Window window;
 	private FileSystem fileSystem;
 	private List<Actor> actors;
+	private List<Actor> registeredActors;
+	private List<Actor> unregisteredActors;
 
 	// Context objects
 	// TODO implements me #PROJECT #TUTO
@@ -30,33 +32,29 @@ public abstract class Area implements Playable {
 	 */
 	public abstract float getCameraScaleFactor();
 
+	public boolean vetoFromGrid() { // Checks if the grid is not full or not available for that type
+		// TODO
+		return false;
+	}
+
+	public boolean agreeToAdd(Actor a) {
+		//TODO
+		return false;
+	}
+
 	/**
 	 * Add an actor to the actors list
 	 * 
 	 * @param a      (Actor): the actor to add, not null
 	 * @param forced (Boolean): if true, the method ends
 	 */
-	public boolean vetoFromGrid() {
-
-	}
-
 	private void addActor(Actor a, boolean forced) {
-		// TODO implements me #PROJECT #TUTO
-		// Here decisions at the area level to decide if an actor // must be added or
-		// not
-		boolean veto = vetoFromGrid();
+		boolean errorOccured = !agreeToAdd(a) || vetoFromGrid();
 
-		if (veto) {
-			boolean errorOccured = !actors.add(a);
-			if (errorOccured) { // If there was a probelm with adding
-				System.out.println("Actor " + a + " cannot be" + "completely added, so remove it from where it");
-				removeActor(a, true);
-			}
-			else
-
-		}
-
-		else {
+		if (errorOccured /* error */ && !forced /* not forced */) { // If there was a problem with adding
+			System.out.println("Actor " + a + " cannot be" + "completely added, so remove it from where it");
+			removeActor(a, true);
+		} else if (!errorOccured || forced) { // add no matter what
 			actors.add(a);
 		}
 
@@ -109,8 +107,7 @@ public abstract class Area implements Playable {
 	}
 
 	/**
-	 * Getter for the area height
-	 * 
+	 *
 	 * @return (int) : the height in number of rows
 	 */
 	public final int getHeight() {
@@ -148,11 +145,28 @@ public abstract class Area implements Playable {
 
 	@Override
 	public void update(float deltaTime) {
+		purgeRegistration();
 		for (Actor a : actors) {
 			a.update(deltaTime);
 			a.draw(window);
+			
+			
 		}
 		// TODO implements me #PROJECT #TUTO
+	}
+	public void purgeRegistration(){
+		actors.addAll(registeredActors);
+		for(Actor a : unregisteredActors) {
+			actors.remove(a);
+		}
+		registeredActors.clear();
+		unregisteredActors.clear();
+	}
+	public void registerActor(Actor a ) {
+		registeredActors.add(a);
+	}
+	public void unregisterActor(Actor a) {
+		unregisteredActors.add(a);
 	}
 
 	private void updateCamera() {

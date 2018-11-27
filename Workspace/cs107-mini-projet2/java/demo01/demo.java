@@ -86,8 +86,6 @@ public class demo implements Game {
 
 	public boolean crash(MovingRock MR) {
 
-		float distMin = (float) Math
-				.sqrt(MR.getPosition().x * MR.getPosition().x + MR.getPosition().y * MR.getPosition().y);
 		float distAvg = (float) Math
 				.sqrt((MR.getPosition().x + MR.getDimx() / 2) * (MR.getPosition().x + MR.getDimx() / 2)
 						+ (MR.getPosition().y + MR.getDimy() / 2) * (MR.getPosition().y + MR.getDimy() / 2));
