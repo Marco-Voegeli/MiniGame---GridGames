@@ -5,6 +5,7 @@ import ch.epfl.cs107.play.game.actor.Actor;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
+import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
@@ -22,15 +23,22 @@ public abstract class Area implements Playable {
 	private List<Actor> actors;
 	private List<Actor> registeredActors;
 	private List<Actor> unregisteredActors;
-
-	// Context objects
-	// TODO implements me #PROJECT #TUTO
+	// Camera Parameter
+	// actor on which the view is centered
+	private Actor viewCandidate;
+	// effective center of the view
+	private Vector viewCenter;
 
 	/**
-	 * @return (float): camera scale factor, assume it is the same in x and y
+	 * @return (float) : camera scale factor, assume it is the same in x and y
 	 *         direction
 	 */
 	public abstract float getCameraScaleFactor();
+
+	{
+		// Context objects
+		// TODO implements me #PROJECT #TUTO
+	}
 
 	public boolean vetoFromGrid() { // Checks if the grid is not full or not available for that type
 		// TODO
@@ -38,7 +46,7 @@ public abstract class Area implements Playable {
 	}
 
 	public boolean agreeToAdd(Actor a) {
-		//TODO
+		// TODO
 		return false;
 	}
 
@@ -81,7 +89,7 @@ public abstract class Area implements Playable {
 	 * @return (boolean): true if the actor is correctly registered
 	 */
 	public final boolean registerActor(Actor a) {
-		// TODO implements me #PROJECT #TUTO
+		registeredActors.add(a);
 		return false;
 	}
 
@@ -92,7 +100,7 @@ public abstract class Area implements Playable {
 	 * @return (boolean): true if the actor is correctly unregistered
 	 */
 	public final boolean unregisterActor(Actor a) {
-		// TODO implements me #PROJECT #TUTO
+		unregisteredActors.add(a);
 		return false;
 	}
 
@@ -133,13 +141,15 @@ public abstract class Area implements Playable {
 	}
 
 	/**
-	 * Resume method: Can be overridden
+	 * Resume method: Can be overridden and is supposed to take the game back from
+	 * the paused state
 	 * 
 	 * @param window     (Window): display context, not null
 	 * @param fileSystem (FileSystem): given file system, not null
 	 * @return (boolean) : if the resume succeed, true by default
 	 */
 	public boolean resume(Window window, FileSystem fileSystem) {
+
 		return true;
 	}
 
@@ -149,24 +159,18 @@ public abstract class Area implements Playable {
 		for (Actor a : actors) {
 			a.update(deltaTime);
 			a.draw(window);
-			
-			
+
 		}
 		// TODO implements me #PROJECT #TUTO
 	}
-	public void purgeRegistration(){
+
+	public void purgeRegistration() {
 		actors.addAll(registeredActors);
-		for(Actor a : unregisteredActors) {
+		for (Actor a : unregisteredActors) {
 			actors.remove(a);
 		}
 		registeredActors.clear();
 		unregisteredActors.clear();
-	}
-	public void registerActor(Actor a ) {
-		registeredActors.add(a);
-	}
-	public void unregisterActor(Actor a) {
-		unregisteredActors.add(a);
 	}
 
 	private void updateCamera() {
@@ -176,13 +180,31 @@ public abstract class Area implements Playable {
 	/**
 	 * Suspend method: Can be overridden, called before resume other
 	 */
-	public void suspend() {
-		// Do nothing by default
+	public final void suspend() {
+		purgeRegistration();
+// Do nothing by default
 	}
 
 	@Override
 	public void end() {
+
 		// TODO save the AreaState somewhere
+	}
+
+	public Actor getViewCandidate() {
+		return viewCandidate;
+	}
+
+	public void setViewCandidate(Actor viewCandidate) {
+		this.viewCandidate = viewCandidate;
+	}
+
+	public Vector getViewCenter() {
+		return viewCenter;
+	}
+
+	public void setViewCenter(Vector v) {
+		this.viewCenter = v;
 	}
 
 }

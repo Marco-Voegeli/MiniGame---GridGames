@@ -7,6 +7,7 @@ import ch.epfl.cs107.play.game.actor.Actor;
 import ch.epfl.cs107.play.game.actor.GraphicsEntity;
 import ch.epfl.cs107.play.game.actor.ShapeGraphics;
 import ch.epfl.cs107.play.game.actor.TextGraphics;
+import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.Circle;
 import ch.epfl.cs107.play.math.Vector;
@@ -14,6 +15,7 @@ import ch.epfl.cs107.play.window.Button;
 import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
 import demo01.actor.MovingRock;
+import ch.epfl.cs107.play.game.areagame.*;
 
 public class demo implements Game {
 	private Actor A1;
@@ -22,6 +24,7 @@ public class demo implements Game {
 	private FileSystem fileSystem;
 	private MovingRock MR;
 	private float thickness = 0.005f;
+	private Area area;
 
 	@Override
 	public boolean begin(Window window, FileSystem fileSystem) {
@@ -30,10 +33,11 @@ public class demo implements Game {
 
 //		Transform viewTransform = Transform.I.scaled(1).translated(new Vector(0.0f, 0.0f));
 //		window.setRelativeTransform(viewTransform);
-
 		A1 = new GraphicsEntity(Vector.ZERO, new ShapeGraphics(new Circle(radius), null, Color.RED, thickness));
 		MR = new MovingRock(new Vector(0.2f, 0.3f), "I am a rock");
 
+		area.setViewCenter(Vector.ZERO); //Does she want us to have getters and setters.
+		area.setViewCandidate(null);
 		return true;
 	}
 
@@ -52,6 +56,7 @@ public class demo implements Game {
 	@Override
 	public void update(float deltaTime) {
 
+		purgeRegistration();
 		// Life can be given in this method
 		Keyboard keyboard = window.getKeyboard();
 		Button[] Arrows = { keyboard.get(Keyboard.UP), keyboard.get(Keyboard.DOWN), keyboard.get(Keyboard.LEFT),
@@ -97,4 +102,10 @@ public class demo implements Game {
 		return false;
 
 	}
+
+	private final void purgeRegistration() {
+//TODO Add registered actor from area
+		// erase actors in unregistered and empty both lists
+	}
+
 }
