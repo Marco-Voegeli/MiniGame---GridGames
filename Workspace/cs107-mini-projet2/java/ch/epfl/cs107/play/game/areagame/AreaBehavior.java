@@ -4,7 +4,7 @@ import ch.epfl.cs107.play.game.areagame.io.ResourcePath;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Image;
 import ch.epfl.cs107.play.window.Window;
-	
+
 /**
  * AreaBehavior manages a map of Cells.
  */
@@ -22,22 +22,19 @@ public abstract class AreaBehavior {
 		this.height = behaviorMap.getHeight();
 		this.cells = new Cell[width][height];
 	}
-	
-	
+
 	public int getWidth() {
 		return width;
 	}
-
 
 	public int getHeight() {
 		return height;
 	}
 
-
 	public abstract class Cell {
-		DiscreteCoordinates x, y;
+		int x, y;
 
-		Cell(DiscreteCoordinates x, DiscreteCoordinates y) {
+		public Cell(int x, int y) {
 			this.x = x;
 			this.y = y;
 		}

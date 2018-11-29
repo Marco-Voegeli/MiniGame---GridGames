@@ -1,19 +1,24 @@
 package ch.epfl.cs107.play.game.enigme;
 
 import ch.epfl.cs107.play.game.areagame.AreaBehavior;
+import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Window;
 
 public class Demo2Behavior extends AreaBehavior {
+//@Override
+//public float getCameraScaleFactor() {
 
-	public Demo2Behavior(Window window, String fileName) {
+	public Demo2Behavior(int i, int y, Window window, String fileName) {
 		super(window, fileName);
-		// TODO Auto-generated constructor stub
+		//TODO
 	}
-
+	
 	public class Demo2Cell extends Cell {
+		Demo2CellType type;
 
 		private Demo2Cell(int x, int y, Demo2CellType type) {
-			super((DiscreteCoordinates) x, (DiscreteCoordinates) y);
+			super(x, y);
+			this.type = type;
 
 		}
 
