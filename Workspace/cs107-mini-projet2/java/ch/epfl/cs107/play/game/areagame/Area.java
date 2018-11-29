@@ -43,7 +43,8 @@ public abstract class Area implements Playable {
 	 */
 	public abstract float getCameraScaleFactor();
 
-	{// TODO
+	{
+
 	}
 
 	public boolean vetoFromGrid() { // Checks if the grid is not full or not available for that type
@@ -141,10 +142,10 @@ public abstract class Area implements Playable {
 
 		this.window = window;
 		this.fileSystem = fileSystem;
-		setViewCandidate(null);
 
-		viewCenter = Vector.ZERO;
 		actors = new LinkedList<>();
+		viewCenter = Vector.ZERO;
+		setViewCandidate(null);
 		return true;
 	}
 
@@ -157,29 +158,26 @@ public abstract class Area implements Playable {
 	 * @return (boolean) : if the resume succeed, true by default
 	 */
 	public boolean resume(Window window, FileSystem fileSystem) {
-
 		return true;
 	}
 
 	@Override
 	public void update(float deltaTime) {
-
-		updateCamera(); // maybe under purgeRegistration()
 		purgeRegistration();
+		updateCamera();
 		for (Actor a : actors) {
 			a.update(deltaTime);
 			a.draw(window);
-
 		}
-
+		// maybe under purgeRegistration()
 		// TODO implements me #PROJECT #TUTO
 	}
 
 	public void purgeRegistration() {
-		actors.addAll(registeredActors);
 		for (Actor a : unregisteredActors) {
 			actors.remove(a);
 		}
+		actors.addAll(registeredActors);
 		registeredActors.clear();
 		unregisteredActors.clear();
 	}

@@ -18,8 +18,11 @@ public class Demo2 extends AreaGame {
 
 //		Transform viewTransform = Transform.I.scaled(1).translated(new Vector(0.0f, 0.0f));
 //		window.setRelativeTransform(viewTransform);
-		Room0 room = new Room0();
+		Room0 room0 = new Room0();
 		Room1 room1 = new Room1();
+		addArea(room0);
+		addArea(room1);
+		setCurrentArea(room0.getTitle(), false);
 		return true;
 
 	}

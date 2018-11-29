@@ -10,7 +10,7 @@ public class Room1 extends Demo2Area {
 
 	public Room1() {
 		super(level1);
-		// TODO Auto-generated constructor stub
+
 	}
 
 	@Override

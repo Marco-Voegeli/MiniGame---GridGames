@@ -54,7 +54,6 @@ public class demo implements Game {
 	@Override
 	public void update(float deltaTime) {
 
-		purgeRegistration();
 		// Life can be given in this method
 		Keyboard keyboard = window.getKeyboard();
 		Button[] Arrows = { keyboard.get(Keyboard.UP), keyboard.get(Keyboard.DOWN), keyboard.get(Keyboard.LEFT),
@@ -99,11 +98,6 @@ public class demo implements Game {
 
 		return false;
 
-	}
-
-	private final void purgeRegistration() {
-//TODO Add registered actor from area
-		// erase actors in unregistered and empty both lists
 	}
 
 }

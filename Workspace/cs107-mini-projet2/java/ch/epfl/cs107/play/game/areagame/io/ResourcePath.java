@@ -10,7 +10,7 @@ public class ResourcePath {
     private static final String BACKGROUNDS = "images/backgrounds/";
     private static final String FOREGROUNDS = "images/foregrounds/";
     private static final String SOUNDS = "/sounds/";
-    private static final String STRINGS = "./strings/";
+    private static final String STRINGS = "strings/";
 
     private static final String IMAGE_EXTENSION = ".png";
     private static final String SOUNDS_EXTENSION = ".wav";

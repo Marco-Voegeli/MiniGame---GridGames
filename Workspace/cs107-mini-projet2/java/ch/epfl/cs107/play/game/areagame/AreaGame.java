@@ -93,7 +93,7 @@ abstract public class AreaGame implements Game {
 
 	@Override
 	public void update(float deltaTime) {
-		// TODO implements me #PROJECT #TUTO
+//		setCurrentArea(key, forceBegin);
 	}
 
 	@Override
