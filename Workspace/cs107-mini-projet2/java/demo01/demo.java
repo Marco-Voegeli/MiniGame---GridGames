@@ -10,6 +10,7 @@ import ch.epfl.cs107.play.game.actor.TextGraphics;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.Circle;
+import ch.epfl.cs107.play.math.Transform;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Button;
 import ch.epfl.cs107.play.window.Keyboard;
@@ -24,7 +25,6 @@ public class demo implements Game {
 	private FileSystem fileSystem;
 	private MovingRock MR;
 	private float thickness = 0.005f;
-	private Area area;
 
 	@Override
 	public boolean begin(Window window, FileSystem fileSystem) {
@@ -36,8 +36,6 @@ public class demo implements Game {
 		A1 = new GraphicsEntity(Vector.ZERO, new ShapeGraphics(new Circle(radius), null, Color.RED, thickness));
 		MR = new MovingRock(new Vector(0.2f, 0.3f), "I am a rock");
 
-		area.setViewCenter(Vector.ZERO); //Does she want us to have getters and setters.
-		area.setViewCandidate(null);
 		return true;
 	}
 
@@ -62,7 +60,6 @@ public class demo implements Game {
 		Button[] Arrows = { keyboard.get(Keyboard.UP), keyboard.get(Keyboard.DOWN), keyboard.get(Keyboard.LEFT),
 				keyboard.get(Keyboard.RIGHT) };
 		TextGraphics crash = new TextGraphics("BOUM!!!!", 0.08f, Color.RED);
-
 		A1.draw(window);
 		MR.draw(window);
 
@@ -81,6 +78,7 @@ public class demo implements Game {
 		if (crash(MR)) {
 			crash.draw(window);
 		}
+
 	}
 
 	@Override

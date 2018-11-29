@@ -16,7 +16,7 @@ public class Background extends Entity {
 
     /// Sprite of the actor
     private final ImageGraphics sprite;
-
+    
     /**
      * Default Background Constructor
      * by default the Background image is using the area title as file name

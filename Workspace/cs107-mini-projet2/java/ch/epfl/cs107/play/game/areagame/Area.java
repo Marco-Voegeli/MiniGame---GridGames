@@ -5,6 +5,7 @@ import ch.epfl.cs107.play.game.actor.Actor;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
+import ch.epfl.cs107.play.math.Transform;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
@@ -12,6 +13,7 @@ import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Area is a "Part" of the AreaGame. It is characterized by its AreaBehavior and
@@ -28,6 +30,12 @@ public abstract class Area implements Playable {
 	private Actor viewCandidate;
 	// effective center of the view
 	private Vector viewCenter;
+	private AreaBehavior areaBehavior;
+
+	protected final void setAreaBehavior(AreaBehavior ab) {
+		this.areaBehavior = ab;
+
+	}
 
 	/**
 	 * @return (float) : camera scale factor, assume it is the same in x and y
@@ -35,9 +43,7 @@ public abstract class Area implements Playable {
 	 */
 	public abstract float getCameraScaleFactor();
 
-	{
-		// Context objects
-		// TODO implements me #PROJECT #TUTO
+	{// TODO
 	}
 
 	public boolean vetoFromGrid() { // Checks if the grid is not full or not available for that type
@@ -110,8 +116,7 @@ public abstract class Area implements Playable {
 	 * @return (int) : the width in number of cols
 	 */
 	public final int getWidth() {
-		// TODO implements me #PROJECT #TUTO
-		return 0;
+		return areaBehavior.getWidth();
 	}
 
 	/**
@@ -120,7 +125,7 @@ public abstract class Area implements Playable {
 	 */
 	public final int getHeight() {
 		// TODO implements me #PROJECT #TUTO
-		return 0;
+		return areaBehavior.getHeight();
 	}
 
 	/** @return the Window Keyboard for inputs */
@@ -133,9 +138,12 @@ public abstract class Area implements Playable {
 
 	@Override
 	public boolean begin(Window window, FileSystem fileSystem) {
-		// TODO implements me #PROJECT #TUTO
+
 		this.window = window;
 		this.fileSystem = fileSystem;
+		setViewCandidate(null);
+
+		viewCenter = Vector.ZERO;
 		actors = new LinkedList<>();
 		return true;
 	}
@@ -155,12 +163,15 @@ public abstract class Area implements Playable {
 
 	@Override
 	public void update(float deltaTime) {
+
+		updateCamera(); // maybe under purgeRegistration()
 		purgeRegistration();
 		for (Actor a : actors) {
 			a.update(deltaTime);
 			a.draw(window);
 
 		}
+
 		// TODO implements me #PROJECT #TUTO
 	}
 
@@ -174,7 +185,12 @@ public abstract class Area implements Playable {
 	}
 
 	private void updateCamera() {
-		// TODO implements me #PROJECT #TUTO
+		if (getViewCandidate() != null) {
+			viewCenter = getViewCandidate().getPosition();
+		}
+
+		Transform viewTransform = Transform.I.scaled(getCameraScaleFactor()).translated(viewCenter);
+		window.setRelativeTransform(viewTransform);
 	}
 
 	/**
@@ -198,13 +214,9 @@ public abstract class Area implements Playable {
 	public void setViewCandidate(Actor viewCandidate) {
 		this.viewCandidate = viewCandidate;
 	}
-
-	public Vector getViewCenter() {
-		return viewCenter;
-	}
-
-	public void setViewCenter(Vector v) {
-		this.viewCenter = v;
+	public boolean addressed() {
+		//TODO
+		return false;
 	}
 
 }
