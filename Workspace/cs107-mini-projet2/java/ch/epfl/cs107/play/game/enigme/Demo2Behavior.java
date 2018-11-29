@@ -8,18 +8,24 @@ public class Demo2Behavior extends AreaBehavior {
 //@Override
 //public float getCameraScaleFactor() {
 
-	public Demo2Behavior(int i, int y, Window window, String fileName) {
+	public Demo2Behavior(Window window, String fileName) {
 		super(window, fileName);
-		//TODO
+		Cell[][] tab = getCells();
+		for (int i = 0; i < tab.length; i++) {
+			for (int j = 0; j < tab[i].length; j++) {
+				Demo2CellType cellType = Demo2CellType.toType(getbehaviorMap().getRGB(getHeight() - 1 - j, i));
+				tab[i][j] = new Demo2Cell(i, j, cellType);
+			}
+		}
+		this.setCells(tab);
 	}
-	
+
 	public class Demo2Cell extends Cell {
-		Demo2CellType type;
+		Demo2CellType cellType;
 
-		private Demo2Cell(int x, int y, Demo2CellType type) {
+		private Demo2Cell(int x, int y, Demo2CellType cellType) {
 			super(x, y);
-			this.type = type;
-
+			this.cellType = cellType;
 		}
 
 	}

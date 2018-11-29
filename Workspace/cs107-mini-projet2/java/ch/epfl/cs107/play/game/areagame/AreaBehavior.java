@@ -1,6 +1,8 @@
 package ch.epfl.cs107.play.game.areagame;
 
 import ch.epfl.cs107.play.game.areagame.io.ResourcePath;
+import ch.epfl.cs107.play.game.enigme.Demo2Behavior.Demo2Cell;
+import ch.epfl.cs107.play.game.enigme.Demo2Behavior.Demo2CellType;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Image;
 import ch.epfl.cs107.play.window.Window;
@@ -26,17 +28,30 @@ public abstract class AreaBehavior {
 	public int getWidth() {
 		return width;
 	}
-
+	public Cell[][] getCells(){
+		return cells;
+	}
+	public void setCells(Cell[][] cells){
+		if(this.cells.length == cells.length) {
+			for (int i = 0; i < this.cells.length; i++) {
+				for (int j = 0; j < this.cells[i].length; j++) {
+					this.cells[i][j] = cells[i][j];
+				}
+			}
+		}
+	}
+	
 	public int getHeight() {
 		return height;
 	}
+	public Image getbehaviorMap() {
+		return behaviorMap;
+	}
 
 	public abstract class Cell {
-		int x, y;
-
+		DiscreteCoordinates cellCoordinates;
 		public Cell(int x, int y) {
-			this.x = x;
-			this.y = y;
+			cellCoordinates = new DiscreteCoordinates (x,y);
 		}
 	}
 
