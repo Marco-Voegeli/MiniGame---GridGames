@@ -7,16 +7,13 @@ import ch.epfl.cs107.play.game.actor.Actor;
 import ch.epfl.cs107.play.game.actor.GraphicsEntity;
 import ch.epfl.cs107.play.game.actor.ShapeGraphics;
 import ch.epfl.cs107.play.game.actor.TextGraphics;
-import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.Circle;
-import ch.epfl.cs107.play.math.Transform;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Button;
 import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
 import demo01.actor.MovingRock;
-import ch.epfl.cs107.play.game.areagame.*;
 
 public class demo implements Game {
 	private Actor A1;

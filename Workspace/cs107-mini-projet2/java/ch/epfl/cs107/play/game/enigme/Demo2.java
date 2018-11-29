@@ -13,9 +13,7 @@ public class Demo2 extends AreaGame {
 
 	@Override
 	public boolean begin(Window window, FileSystem fileSystem) {
-		this.window = window;
-		this.fileSystem = fileSystem;
-
+		super.begin(window, fileSystem);
 //		Transform viewTransform = Transform.I.scaled(1).translated(new Vector(0.0f, 0.0f));
 //		window.setRelativeTransform(viewTransform);
 		Room0 room0 = new Room0();
