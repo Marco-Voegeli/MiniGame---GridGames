@@ -214,8 +214,9 @@ public abstract class Area implements Playable {
 	public void setViewCandidate(Actor viewCandidate) {
 		this.viewCandidate = viewCandidate;
 	}
+
 	public boolean addressed() {
-		//TODO
+		// TODO
 		return false;
 	}
 
