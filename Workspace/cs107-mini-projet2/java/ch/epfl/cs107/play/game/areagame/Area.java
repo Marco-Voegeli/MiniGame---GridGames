@@ -32,7 +32,7 @@ public abstract class Area implements Playable {
 	private Vector viewCenter;
 	private AreaBehavior areaBehavior;
 
-	protected final void setAreaBehavior(AreaBehavior ab) {
+	protected final void setBehavior(AreaBehavior ab) {
 		this.areaBehavior = ab;
 
 	}

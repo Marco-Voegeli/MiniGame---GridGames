@@ -16,7 +16,7 @@ public class Room0 extends Demo2Area {
 	@Override
 	public boolean begin(Window window, FileSystem fileSystem) {
 		super.begin(window, fileSystem);
-		setAreaBehavior(new Demo2Behavior(window, getTitle())); // setBehavior
+		setBehavior(new Demo2Behavior(window, getTitle())); // setBehavior
 		registerActor(new Background(this));
 
 		return true;

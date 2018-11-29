@@ -15,7 +15,6 @@ import ch.epfl.cs107.play.window.Window;
 abstract public class AreaGame implements Game {
 
 	// Context objects
-	// TODO implements me #PROJECT #TUTO
 	// Context objects
 	private Window window;
 	private FileSystem fileSystem;
@@ -48,6 +47,7 @@ abstract public class AreaGame implements Game {
 
 		if (currentArea != null) {
 			currentArea.suspend();
+			currentArea.purgeRegistration();
 		}
 
 		temp = currentArea;
