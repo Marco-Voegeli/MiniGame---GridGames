@@ -1,8 +1,12 @@
 package ch.epfl.cs107.play.game.areagame;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import ch.epfl.cs107.play.game.actor.Actor;
+import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.game.areagame.io.ResourcePath;
-import ch.epfl.cs107.play.game.enigme.Demo2Behavior.Demo2Cell;
-import ch.epfl.cs107.play.game.enigme.Demo2Behavior.Demo2CellType;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Image;
 import ch.epfl.cs107.play.window.Window;
@@ -16,6 +20,7 @@ public abstract class AreaBehavior {
 	private final int width, height;
 	/// We will convert the image into an array of cells
 	private final Cell[][] cells;
+	
 
 	public AreaBehavior(Window window, String fileName) {
 
@@ -48,11 +53,16 @@ public abstract class AreaBehavior {
 		return behaviorMap;
 	}
 
-	public abstract class Cell {
+	public abstract class Cell implements Interactable{
 		DiscreteCoordinates cellCoordinates;
+		Set<Actor> cellSet= new HashSet<Actor>();
 		public Cell(int x, int y) {
 			cellCoordinates = new DiscreteCoordinates (x,y);
 		}
+		public abstract List<DiscreteCoordinates> getCurrentCells();
+
+
+		
 	}
 
 	/**

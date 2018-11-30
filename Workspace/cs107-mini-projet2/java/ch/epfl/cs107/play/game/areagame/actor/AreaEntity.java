@@ -8,7 +8,7 @@ import ch.epfl.cs107.play.math.Vector;
 /**
  * Actors leaving in a grid
  */
-public abstract class AreaEntity extends Entity {
+public abstract class AreaEntity extends Entity implements Interactable {
 	/// an AreaEntity knows its own Area
 	private Area ownerArea;
 	/// Orientation of the AreaEntity in the Area
@@ -16,6 +16,7 @@ public abstract class AreaEntity extends Entity {
 	/// Coordinate of the main Cell linked to the entity
 	private DiscreteCoordinates currentMainCellCoordinates;
 	// TODO implements me #PROJECT #TUTO
+
 
 	/**
 	 * Default AreaEntity constructor
