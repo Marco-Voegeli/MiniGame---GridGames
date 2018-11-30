@@ -10,25 +10,35 @@ public class Demo2 extends AreaGame {
 
 	private FileSystem fileSystem;
 	private Window window;
-
+	
 	@Override
 	public boolean begin(Window window, FileSystem fileSystem) {
-		super.begin(window, fileSystem);
-//		Transform viewTransform = Transform.I.scaled(1).translated(new Vector(0.0f, 0.0f));
-//		window.setRelativeTransform(viewTransform);
-		Room0 room0 = new Room0();
-		Room1 room1 = new Room1();
-		addArea(room0);
-		addArea(room1);
-		setCurrentArea(room0.getTitle(), false);
-		return true;
+		if (super.begin(window, fileSystem) == true) {
 
+//			Transform viewTransform = Transform.I.scaled(100).translated(new Vector(-5.5f, -5.5f));
+//			window.setRelativeTransform(viewTransform);
+
+			Room0 room0 = new Room0();
+			Room1 room1 = new Room1();
+			room0.begin(window, fileSystem);
+			room1.begin(window, fileSystem);
+			addArea(room0);
+			addArea(room1);
+			setCurrentArea(room0.getTitle(), false);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public void update(float deltaTime) {
+		getCurrentArea().update(deltaTime);
 	}
 
 	@Override
 	public int getFrameRate() {
 		// TODO Auto-generated method stub
-		return 24;
+		return 60;
 	}
 
 	@Override

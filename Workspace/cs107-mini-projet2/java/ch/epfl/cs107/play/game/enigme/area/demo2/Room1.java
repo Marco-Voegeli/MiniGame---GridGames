@@ -6,20 +6,11 @@ import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.window.Window;
 
 public class Room1 extends Demo2Area {
-	private static String level1 = "Level1";
-
-	public Room1() {
-		super(level1);
-
-	}
 
 	@Override
-	public boolean begin(Window window, FileSystem fileSystem) {
-		super.begin(window, fileSystem);
-		setBehavior(new Demo2Behavior(window, getTitle())); // setBehavior
-		registerActor(new Background(this));
-
-		return true;
+	public String getTitle() {
+		// TODO Auto-generated method stub
+		return "Level1";
 	}
 
 }

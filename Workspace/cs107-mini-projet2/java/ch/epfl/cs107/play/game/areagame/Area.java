@@ -31,6 +31,7 @@ public abstract class Area implements Playable {
 	// effective center of the view
 	private Vector viewCenter;
 	private AreaBehavior areaBehavior;
+	private boolean addressed;
 
 	protected final void setBehavior(AreaBehavior ab) {
 		this.areaBehavior = ab;
@@ -44,17 +45,16 @@ public abstract class Area implements Playable {
 	public abstract float getCameraScaleFactor();
 
 	{
-
 	}
 
 	public boolean vetoFromGrid() { // Checks if the grid is not full or not available for that type
 		// TODO
-		return false;
+		return true;
 	}
 
 	public boolean agreeToAdd(Actor a) {
-		// TODO
-		return false;
+		// TODO check if actor a is compatible with the cell we want to add it in.
+		return true;
 	}
 
 	/**
@@ -142,10 +142,12 @@ public abstract class Area implements Playable {
 
 		this.window = window;
 		this.fileSystem = fileSystem;
-
+		registeredActors = new LinkedList<>();
+		unregisteredActors = new LinkedList<>();
 		actors = new LinkedList<>();
-		viewCenter = Vector.ZERO;
+		viewCenter = new Vector(5f, 5f);
 		setViewCandidate(null);
+		addressed = true;
 		return true;
 	}
 
@@ -163,6 +165,7 @@ public abstract class Area implements Playable {
 
 	@Override
 	public void update(float deltaTime) {
+
 		purgeRegistration();
 		updateCamera();
 		for (Actor a : actors) {
@@ -201,6 +204,7 @@ public abstract class Area implements Playable {
 
 	@Override
 	public void end() {
+		addressed = false;
 
 		// TODO save the AreaState somewhere
 	}
@@ -213,9 +217,9 @@ public abstract class Area implements Playable {
 		this.viewCandidate = viewCandidate;
 	}
 
-	public boolean addressed() {
-		// TODO
-		return false;
+	public boolean getAddressed() {
+
+		return addressed;
 	}
 
 }

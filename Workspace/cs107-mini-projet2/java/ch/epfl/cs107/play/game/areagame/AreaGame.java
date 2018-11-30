@@ -31,7 +31,6 @@ abstract public class AreaGame implements Game {
 	protected final void addArea(Area a) {
 		areas.put(a.getTitle(), a);
 	}
-
 	/**
 	 * Setter for the current area: Select an Area in the list from its key - the
 	 * area is then begin or resume depending if the area is already started or not
@@ -54,7 +53,7 @@ abstract public class AreaGame implements Game {
 		currentArea = areas.get(key);
 
 		if (currentArea != null) {
-			if (currentArea.addressed() || forceBegin == true) {
+			if (!currentArea.getAddressed() || forceBegin) {
 				currentArea.begin(window, fileSystem);
 			} else {
 				currentArea.resume(window, fileSystem);
@@ -64,11 +63,14 @@ abstract public class AreaGame implements Game {
 				throw new NullPointerException("The area is null");
 			} else {
 				currentArea = temp;
+				currentArea.resume(window, fileSystem);
 			}
 		}
 		return currentArea;
 	}
-
+protected Area getCurrentArea() {
+	return currentArea;
+}
 	/** @return (Window) : the Graphic and Audio context */
 	protected final Window getWindow() {
 		// TODO implements me #PROJECT #TUTO
