@@ -34,7 +34,7 @@ public abstract class AreaBehavior {
 		return width;
 	}
 
-	public boolean canLeave(Interactable entity, List<DiscreteCoordinates> coordinates) {
+	public  boolean canLeave(Interactable entity, List<DiscreteCoordinates> coordinates) {
 
 		return true;
 	}
@@ -126,13 +126,9 @@ public abstract class AreaBehavior {
 			cellSet.remove(i);
 		}
 
-		protected boolean canEnter(Interactable entity) {
-			return true;
-		}
+		protected abstract boolean canEnter(Interactable entity);
 
-		protected boolean canLeave(Interactable entity) {
-			return true;
-		}
+		protected abstract boolean canLeave(Interactable entity);
 	}
 
 	/**
