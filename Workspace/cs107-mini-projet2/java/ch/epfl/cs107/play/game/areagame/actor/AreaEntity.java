@@ -17,7 +17,6 @@ public abstract class AreaEntity extends Entity implements Interactable {
 	private DiscreteCoordinates currentMainCellCoordinates;
 	// TODO implements me #PROJECT #TUTO
 
-
 	/**
 	 * Default AreaEntity constructor
 	 * 
@@ -30,26 +29,26 @@ public abstract class AreaEntity extends Entity implements Interactable {
 	public AreaEntity(Area area, Orientation orientation, DiscreteCoordinates position) {
 
 		super(position.toVector());
-		if(area == null || orientation == null || position == null) {
+		if (area == null || orientation == null || position == null) {
 			throw new NullPointerException("One of the parameters is null");
-		}
-		else {
+		} else {
 			this.orientation = orientation;
-			this.ownerArea = area;
+			this.setOwnerArea(area);
 			this.currentMainCellCoordinates = position;
-			
+
 		}
 		// TODO implements me #PROJECT #TUTO
 	}
-	 protected void setCurrentPosition(Vector v){
-	        if(DiscreteCoordinates.isCoordinates(v)) {
-	        	v = v.round();
-	        	currentMainCellCoordinates = new DiscreteCoordinates((int)v.getX(),(int)v.getY());
-	        }
-	        else {
-	        	
-	        }
-	    } 
+
+	protected void setCurrentPosition(Vector v) {
+		if (DiscreteCoordinates.isCoordinates(v)) {
+			v = v.round();
+			currentMainCellCoordinates = new DiscreteCoordinates((int) v.getX(), (int) v.getY());
+		} else {
+
+		}
+	}
+
 	/**
 	 * Getter for the coordinates of the main cell occupied by the AreaEntity
 	 * 
@@ -59,11 +58,21 @@ public abstract class AreaEntity extends Entity implements Interactable {
 
 		return currentMainCellCoordinates;
 	}
+
 	protected Orientation getOrientation() {
 		return orientation;
 	}
+
 	protected void setOrientation(Orientation orientation) {
 		this.orientation = orientation;
+	}
+
+	public Area getOwnerArea() {
+		return ownerArea;
+	}
+
+	public void setOwnerArea(Area ownerArea) {
+		this.ownerArea = ownerArea;
 	}
 
 }

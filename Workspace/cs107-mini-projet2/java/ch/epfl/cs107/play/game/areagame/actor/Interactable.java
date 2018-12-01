@@ -20,5 +20,5 @@ public interface Interactable {
 	public boolean isViewInteractable();
 
 	public boolean isCellInteractable();
-
+	
 }

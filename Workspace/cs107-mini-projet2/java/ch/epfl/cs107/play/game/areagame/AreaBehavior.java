@@ -1,6 +1,7 @@
 package ch.epfl.cs107.play.game.areagame;
 
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -20,7 +21,6 @@ public abstract class AreaBehavior {
 	private final int width, height;
 	/// We will convert the image into an array of cells
 	private final Cell[][] cells;
-	
 
 	public AreaBehavior(Window window, String fileName) {
 
@@ -33,11 +33,43 @@ public abstract class AreaBehavior {
 	public int getWidth() {
 		return width;
 	}
-	public Cell[][] getCells(){
+
+	public boolean canLeave(Interactable entity, List<DiscreteCoordinates> coordinates) {
+
+		return true;
+	}
+
+	public boolean canEnter(Interactable entity, List<DiscreteCoordinates> coordinates) {
+
+		return true;
+	}
+
+	protected void leave(Interactable entity, List<DiscreteCoordinates> coordinates) {
+		for (int i = 0; i < this.cells.length; i++) {
+			for (int j = 0; j < this.cells[i].length; j++) {
+				if (cells[i][j].getCurrentCells().equals(coordinates)) {
+					cells[i][j].leave(entity);
+				}
+			}
+		}
+	}
+
+	protected void enter(Interactable entity, List<DiscreteCoordinates> coordinates) {
+		for (int i = 0; i < this.cells.length; i++) {
+			for (int j = 0; j < this.cells[i].length; j++) {
+				if (cells[i][j].getCurrentCells().equals(coordinates)) {
+					cells[i][j].enter(entity);
+				}
+			}
+		}
+	}
+
+	public Cell[][] getCells() {
 		return cells;
 	}
-	public void setCells(Cell[][] cells){
-		if(this.cells.length == cells.length) {
+
+	public void setCells(Cell[][] cells) {
+		if (this.cells.length == cells.length) {
 			for (int i = 0; i < this.cells.length; i++) {
 				for (int j = 0; j < this.cells[i].length; j++) {
 					this.cells[i][j] = cells[i][j];
@@ -45,24 +77,62 @@ public abstract class AreaBehavior {
 			}
 		}
 	}
-	
+
 	public int getHeight() {
 		return height;
 	}
+
 	public Image getbehaviorMap() {
 		return behaviorMap;
 	}
 
-	public abstract class Cell implements Interactable{
+	public abstract class Cell implements Interactable {
+		List<DiscreteCoordinates> cell;
 		DiscreteCoordinates cellCoordinates;
-		Set<Actor> cellSet= new HashSet<Actor>();
+		Set<Interactable> cellSet = new HashSet<>();
+
 		public Cell(int x, int y) {
-			cellCoordinates = new DiscreteCoordinates (x,y);
+			cellCoordinates = new DiscreteCoordinates(x, y);
+			cellSet = new HashSet<>();
 		}
-		public abstract List<DiscreteCoordinates> getCurrentCells();
 
+		@Override
+		public List<DiscreteCoordinates> getCurrentCells() {
+			cell = new LinkedList<DiscreteCoordinates>();
+			cell.add(cellCoordinates);
+			return cell;
+		}
 
-		
+		public final boolean takeCellSpace() {
+//			if(cellCoordinates.filled()) {
+//				return false;
+//			}
+			return true;
+		} // if true not traversable
+
+		public final boolean isViewInteractable() {
+			return false;
+		}
+
+		public final boolean isCellInteractable() {
+			return false;
+		}
+
+		private void enter(Interactable i) {
+			cellSet.add(i);
+		}
+
+		private void leave(Interactable i) {
+			cellSet.remove(i);
+		}
+
+		protected boolean canEnter(Interactable entity) {
+			return true;
+		}
+
+		protected boolean canLeave(Interactable entity) {
+			return true;
+		}
 	}
 
 	/**

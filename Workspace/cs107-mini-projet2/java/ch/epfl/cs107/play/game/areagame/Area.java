@@ -2,6 +2,7 @@ package ch.epfl.cs107.play.game.areagame;
 
 import ch.epfl.cs107.play.game.Playable;
 import ch.epfl.cs107.play.game.actor.Actor;
+import ch.epfl.cs107.play.game.areagame.actor.Grid;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
@@ -220,6 +221,18 @@ public abstract class Area implements Playable {
 	public boolean getAddressed() {
 
 		return addressed;
+	}
+
+	public final boolean leaveAreaCells(Interactable entity ,
+			List <DiscreteCoordinates > coordinates) {
+				return true;
+		
+	}
+	
+	public final boolean enterAreaCells(Interactable entity ,
+			List <DiscreteCoordinates> coordinates) {
+		return false;
+		
 	}
 
 }

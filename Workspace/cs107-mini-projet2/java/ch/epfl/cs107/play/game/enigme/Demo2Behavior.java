@@ -1,6 +1,9 @@
 package ch.epfl.cs107.play.game.enigme;
 
+import java.util.List;
+
 import ch.epfl.cs107.play.game.areagame.AreaBehavior;
+import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Window;
 
 public class Demo2Behavior extends AreaBehavior {
@@ -25,6 +28,12 @@ public class Demo2Behavior extends AreaBehavior {
 		private Demo2Cell(int x, int y, Demo2CellType cellType) {
 			super(x, y);
 			this.cellType = cellType;
+		}
+
+		@Override
+		public List<DiscreteCoordinates> getCurrentCells() {
+			// TODO Auto-generated method stub
+			return null;
 		}
 
 	}

@@ -124,4 +124,6 @@ public final class DiscreteCoordinates implements Serializable {
     public String toString() {
         return "Coor(x:"+ x +", y:"+ y +")";
     }
+
+	
 }
