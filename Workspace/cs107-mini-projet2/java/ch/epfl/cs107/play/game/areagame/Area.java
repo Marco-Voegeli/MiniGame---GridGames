@@ -146,7 +146,7 @@ public abstract class Area implements Playable {
 		registeredActors = new LinkedList<>();
 		unregisteredActors = new LinkedList<>();
 		actors = new LinkedList<>();
-		viewCenter = new Vector(5f, 5f);
+		viewCenter = Vector.ZERO;
 		setViewCandidate(null);
 		addressed = true;
 		return true;

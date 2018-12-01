@@ -3,6 +3,7 @@ package ch.epfl.cs107.play.game.enigme;
 import java.util.List;
 
 import ch.epfl.cs107.play.game.areagame.AreaBehavior;
+import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Window;
 
@@ -34,6 +35,18 @@ public class Demo2Behavior extends AreaBehavior {
 		public List<DiscreteCoordinates> getCurrentCells() {
 			// TODO Auto-generated method stub
 			return null;
+		}
+
+		@Override
+		protected boolean canEnter(Interactable entity) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		protected boolean canLeave(Interactable entity) {
+			// TODO Auto-generated method stub
+			return false;
 		}
 
 	}
