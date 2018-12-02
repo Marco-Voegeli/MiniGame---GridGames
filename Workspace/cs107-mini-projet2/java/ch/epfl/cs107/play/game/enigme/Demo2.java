@@ -1,16 +1,21 @@
 package ch.epfl.cs107.play.game.enigme;
 
 import ch.epfl.cs107.play.game.areagame.AreaGame;
+import ch.epfl.cs107.play.game.areagame.actor.Orientation;
+import ch.epfl.cs107.play.game.enigme.actor.demo2.Demo2Player;
 import ch.epfl.cs107.play.game.enigme.area.demo2.Room0;
 import ch.epfl.cs107.play.game.enigme.area.demo2.Room1;
 import ch.epfl.cs107.play.io.FileSystem;
+import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Window;
 
 public class Demo2 extends AreaGame {
 
 	private FileSystem fileSystem;
 	private Window window;
-	
+	private Demo2Player player1;
+	private Room0 room0;
+	private Room1 room1;
 	@Override
 	public boolean begin(Window window, FileSystem fileSystem) {
 		if (super.begin(window, fileSystem) == true) {
@@ -20,11 +25,15 @@ public class Demo2 extends AreaGame {
 
 			Room0 room0 = new Room0();
 			Room1 room1 = new Room1();
+			Demo2Player player1 = new Demo2Player(getCurrentArea(), Orientation.DOWN, new DiscreteCoordinates(5, 5));
 			room0.begin(window, fileSystem);
 			room1.begin(window, fileSystem);
+			getCurrentArea().setViewCandidate(player1);
+			
 			addArea(room0);
 			addArea(room1);
 			setCurrentArea(room0.getTitle(), false);
+			
 			return true;
 		}
 		return false;
@@ -33,6 +42,17 @@ public class Demo2 extends AreaGame {
 	@Override
 	public void update(float deltaTime) {
 		getCurrentArea().update(deltaTime);
+	
+			if(player1.isPassingdoor()) {
+				if(player1.getOwnerArea() == room0) {
+				setCurrentArea(room1.getTitle(), false);
+				player1.enterArea(room1, new DiscreteCoordinates(5, 2));
+			}
+				else if(player1.getOwnerArea() == room1) {
+					setCurrentArea(room0.getTitle(), false);
+					player1.enterArea(room0, new DiscreteCoordinates(5, 2));
+					}
+				}
 	}
 
 	@Override

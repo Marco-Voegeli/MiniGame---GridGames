@@ -30,8 +30,13 @@ public class Demo2Player extends MovableAreaEntity {
 
 	public Demo2Player(Area area, Orientation orientation, DiscreteCoordinates position) {
 		super(area, orientation, position);
-		demoSprite = new Sprite("ghost.1", 1, 1.f, this);
 		this.setOrientation(Orientation.DOWN);
+		demoSprite = new Sprite("ghost.1", 1, 1.f, this);
+		
+	}
+
+	public boolean isPassingdoor() {
+		return passingdoor;
 	}
 
 	@Override
