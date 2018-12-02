@@ -5,6 +5,7 @@ import java.util.List;
 
 import ch.epfl.cs107.play.game.actor.Actor;
 import ch.epfl.cs107.play.game.areagame.Area;
+import ch.epfl.cs107.play.game.areagame.AreaBehavior;
 import ch.epfl.cs107.play.game.areagame.AreaBehavior.Cell;
 import ch.epfl.cs107.play.game.areagame.actor.MovableAreaEntity;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
@@ -23,6 +24,7 @@ public class Demo2Player extends MovableAreaEntity {
 	private boolean passingdoor = false;
 	private Window window;
 	private Sprite demoSprite;
+	private AreaBehavior actorAreaBehavior;
 	/// Animation duration in frame number
 	private final static int ANIMATION_DURATION = 8;
 
@@ -67,7 +69,14 @@ public class Demo2Player extends MovableAreaEntity {
 	@Override
 	protected boolean move(int framesForMove) {
 		// TODO Auto-generated method stub;
-		passingdoor = this.getOwnerArea().getEnteringCells((Actor) this).contains(Demo2CellType.DOOR);
+		actorAreaBehavior = getOwnerArea().getAreaBehavior();
+		List<DiscreteCoordinates> DClist = getOwnerArea().getEnteringCells((Actor)this);
+		for(DiscreteCoordinates a : DClist) {
+			if(cellType(Demo2CellType.DOOR,(Demo2Cell)actorAreaBehavior.getCell(a))){
+					passingdoor = true;
+					return passingdoor;
+			}
+		}
 		return passingdoor;
 	}
 

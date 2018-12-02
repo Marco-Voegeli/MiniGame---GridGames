@@ -69,8 +69,8 @@ public abstract class AreaBehavior {
 		return cells;
 	}
 
-	public Cell getCells(Cell[][] cell,DiscreteCoordinates coord){
-		return cell[coord.x][coord.y];
+	public Cell getCell(DiscreteCoordinates coord){
+		return cells[coord.x][coord.y];
 	}
 	
 	public void setCells(Cell[][] cells) {
