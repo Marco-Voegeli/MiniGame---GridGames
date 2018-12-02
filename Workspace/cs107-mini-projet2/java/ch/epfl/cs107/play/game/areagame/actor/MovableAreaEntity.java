@@ -81,7 +81,7 @@ public abstract class MovableAreaEntity extends AreaEntity {
 			Vector distance = getOrientation().toVector();
 			distance = distance.mul(1.0f / framesForCurrentMove);
 			setCurrentPosition(getPosition().add(distance));
-		} else{
+		} else {
 			resetMotion();
 		}
 	}
