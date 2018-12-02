@@ -1,8 +1,12 @@
 package ch.epfl.cs107.play.game.areagame;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 import ch.epfl.cs107.play.game.Playable;
 import ch.epfl.cs107.play.game.actor.Actor;
-import ch.epfl.cs107.play.game.areagame.actor.Grid;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
@@ -10,11 +14,6 @@ import ch.epfl.cs107.play.math.Transform;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
-import ch.epfl.cs107.play.game.areagame.actor.Interactable;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Area is a "Part" of the AreaGame. It is characterized by its AreaBehavior and
@@ -33,6 +32,8 @@ public abstract class Area implements Playable {
 	private Vector viewCenter;
 	private AreaBehavior areaBehavior;
 	private boolean addressed;
+	private Map<Interactable, List<DiscreteCoordinates>> interactablesToEnter;
+	private Map<Interactable, List<DiscreteCoordinates>> interactablesToLeave;
 
 	protected final void setBehavior(AreaBehavior ab) {
 		this.areaBehavior = ab;
@@ -68,8 +69,11 @@ public abstract class Area implements Playable {
 	private void addActor(Actor a, boolean forced) {
 		boolean errorOccured = !agreeToAdd(a) || vetoFromGrid();
 
+		if (a instanceof Interactable)
+			errorOccured = errorOccured || !enterAreaCells(((Interactable) a), ((Interactable) a).getCurrentCells());
+
 		if (errorOccured /* error */ && !forced /* not forced */) { // If there was a problem with adding
-			System.out.println("Actor " + a + " cannot be" + "completely added, so remove it from where it");
+			System.out.println("Actor " + a + " cannot be" + "completely added, so remove it from where it is");
 			removeActor(a, true);
 		} else if (!errorOccured || forced) { // add no matter what
 			actors.add(a);
@@ -84,8 +88,13 @@ public abstract class Area implements Playable {
 	 * @param forced (Boolean): if true, the method ends
 	 */
 	private void removeActor(Actor a, boolean forced) {
+		boolean canLeave = false;
+		if (a instanceof Interactable) {
+			canLeave = leaveAreaCells(((Interactable) a), ((Interactable) a).getCurrentCells());
+
+		}
 		// TODO implements me #PROJECT #TUTO
-		if (forced) {
+		if (forced || canLeave) {
 			actors.remove(a);
 		}
 
@@ -225,12 +234,16 @@ public abstract class Area implements Playable {
 	}
 
 	public final boolean leaveAreaCells(Interactable entity, List<DiscreteCoordinates> coordinates) {
-		return true;
+		interactablesToLeave = new HashMap<>();
+		interactablesToLeave.put(entity, coordinates);
+		return areaBehavior.canLeave(entity, coordinates);
 
 	}
 
 	public final boolean enterAreaCells(Interactable entity, List<DiscreteCoordinates> coordinates) {
-		return false;
+		interactablesToEnter = new HashMap<>();
+		interactablesToEnter.put(entity, coordinates);
+		return areaBehavior.canEnter(entity, coordinates);
 
 	}
 
