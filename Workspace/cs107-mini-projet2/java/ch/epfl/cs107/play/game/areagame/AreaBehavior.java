@@ -34,7 +34,7 @@ public abstract class AreaBehavior {
 		return width;
 	}
 
-	public  boolean canLeave(Interactable entity, List<DiscreteCoordinates> coordinates) {
+	public boolean canLeave(Interactable entity, List<DiscreteCoordinates> coordinates) {
 
 		return true;
 	}

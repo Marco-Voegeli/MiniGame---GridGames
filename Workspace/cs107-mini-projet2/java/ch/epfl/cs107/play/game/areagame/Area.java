@@ -54,7 +54,8 @@ public abstract class Area implements Playable {
 	}
 
 	public boolean agreeToAdd(Actor a) {
-		// TODO check if actor a is compatible with the cell we want to add it in.
+		// TODO : add area conditions here
+
 		return true;
 	}
 
@@ -223,16 +224,14 @@ public abstract class Area implements Playable {
 		return addressed;
 	}
 
-	public final boolean leaveAreaCells(Interactable entity ,
-			List <DiscreteCoordinates > coordinates) {
-				return true;
-		
+	public final boolean leaveAreaCells(Interactable entity, List<DiscreteCoordinates> coordinates) {
+		return true;
+
 	}
-	
-	public final boolean enterAreaCells(Interactable entity ,
-			List <DiscreteCoordinates> coordinates) {
+
+	public final boolean enterAreaCells(Interactable entity, List<DiscreteCoordinates> coordinates) {
 		return false;
-		
+
 	}
 
 }

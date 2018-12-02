@@ -1,5 +1,7 @@
 package ch.epfl.cs107.play.game.areagame.actor;
 
+import java.util.List;
+
 import ch.epfl.cs107.play.game.actor.Entity;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
