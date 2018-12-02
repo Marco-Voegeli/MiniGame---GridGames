@@ -4,9 +4,11 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import ch.epfl.cs107.play.game.Playable;
 import ch.epfl.cs107.play.game.actor.Actor;
+import ch.epfl.cs107.play.game.areagame.AreaBehavior.Cell;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
@@ -32,8 +34,8 @@ public abstract class Area implements Playable {
 	private Vector viewCenter;
 	private AreaBehavior areaBehavior;
 	private boolean addressed;
-	private Map<Interactable, List<DiscreteCoordinates>> interactablesToEnter;
-	private Map<Interactable, List<DiscreteCoordinates>> interactablesToLeave;
+	private Map<Interactable, List<DiscreteCoordinates>> interactablesToEnter = new HashMap<>();
+	private Map<Interactable, List<DiscreteCoordinates>> interactablesToLeave = new HashMap<>();
 
 	protected final void setBehavior(AreaBehavior ab) {
 		this.areaBehavior = ab;
@@ -46,18 +48,35 @@ public abstract class Area implements Playable {
 	 */
 	public abstract float getCameraScaleFactor();
 
-	{
-	}
-
 	public boolean vetoFromGrid() { // Checks if the grid is not full or not available for that type
 		// TODO
 		return true;
 	}
 
-	public boolean agreeToAdd(Actor a) {
-		// TODO : add area conditions here
+	public List<DiscreteCoordinates> getEnteringCells(Actor a) {
+		if (a instanceof Interactable) {
 
-		return true;
+			return interactablesToEnter.get((Interactable) a);
+		} else {
+			throw new NullPointerException("Not Interactable");
+		}
+	}
+
+	public List<DiscreteCoordinates> getLeavingCells(Actor a) {
+		if (a instanceof Interactable) {
+
+			return interactablesToLeave.get((Interactable) a);
+		} else {
+			throw new NullPointerException("Not Interactable");
+		}
+	}
+
+	public boolean agreeToAdd(Actor a) {
+		if (areaBehavior.canEnter((Interactable) a, getEnteringCells(a))
+				&& areaBehavior.canLeave((Interactable) a, getLeavingCells(a))) {
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -194,6 +213,15 @@ public abstract class Area implements Playable {
 		actors.addAll(registeredActors);
 		registeredActors.clear();
 		unregisteredActors.clear();
+		for (Entry<Interactable, List<DiscreteCoordinates>> a : interactablesToEnter.entrySet()) {
+			a.getKey().getCurrentCells().addAll(a.getValue());
+		}
+		interactablesToEnter.clear();
+
+		for (Entry<Interactable, List<DiscreteCoordinates>> a : interactablesToLeave.entrySet()) {
+			a.getKey().getCurrentCells().removeAll(a.getValue());
+		}
+		interactablesToEnter.clear();
 	}
 
 	private void updateCamera() {
@@ -234,14 +262,12 @@ public abstract class Area implements Playable {
 	}
 
 	public final boolean leaveAreaCells(Interactable entity, List<DiscreteCoordinates> coordinates) {
-		interactablesToLeave = new HashMap<>();
 		interactablesToLeave.put(entity, coordinates);
 		return areaBehavior.canLeave(entity, coordinates);
 
 	}
 
 	public final boolean enterAreaCells(Interactable entity, List<DiscreteCoordinates> coordinates) {
-		interactablesToEnter = new HashMap<>();
 		interactablesToEnter.put(entity, coordinates);
 		return areaBehavior.canEnter(entity, coordinates);
 
