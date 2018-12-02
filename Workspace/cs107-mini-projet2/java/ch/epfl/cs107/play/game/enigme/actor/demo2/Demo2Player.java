@@ -59,14 +59,16 @@ public class Demo2Player extends MovableAreaEntity {
 		// TODO Auto-generated method stub
 		demoSprite.draw(canvas);
 	}
-	public boolean cellType(Demo2CellType type, Demo2Cell cell){
+
+	public boolean cellType(Demo2CellType type, Demo2Cell cell) {
 		return (cell.getDemo2CellType() == type);
 	}
+
 	@Override
 	protected boolean move(int framesForMove) {
-		// TODO Auto-generated method stub
-		Cell[][] mycells =this.getOwnerArea().getAreaBehavior().getCells();
-		return (cellType(Demo2CellType.DOOR,mycells);
+		// TODO Auto-generated method stub;
+		passingdoor = this.getOwnerArea().getEnteringCells((Actor) this).contains(Demo2CellType.DOOR);
+		return passingdoor;
 	}
 
 	@Override
