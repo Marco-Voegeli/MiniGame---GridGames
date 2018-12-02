@@ -50,7 +50,7 @@ public class Demo2 extends AreaGame {
 				player1.enterArea(room1, new DiscreteCoordinates(5, 2));
 			} else if (player1.getOwnerArea() == room1) {
 				setCurrentArea(room0.getTitle(), false);
-				player1.enterArea(room0, new DiscreteCoordinates(5, 2));
+				player1.enterArea(room0, new DiscreteCoordinates(5, 5));
 			}
 		}
 	}

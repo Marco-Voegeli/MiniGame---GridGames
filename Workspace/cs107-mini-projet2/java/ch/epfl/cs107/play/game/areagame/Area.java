@@ -33,13 +33,11 @@ public abstract class Area implements Playable {
 	// effective center of the view
 	private Vector viewCenter;
 	private AreaBehavior areaBehavior;
-	
 
 	private boolean addressed;
 	private Map<Interactable, List<DiscreteCoordinates>> interactablesToEnter = new HashMap<>();
 	private Map<Interactable, List<DiscreteCoordinates>> interactablesToLeave = new HashMap<>();
 
-	
 	public AreaBehavior getAreaBehavior() {
 		return areaBehavior;
 	}
@@ -202,7 +200,6 @@ public abstract class Area implements Playable {
 
 	@Override
 	public void update(float deltaTime) {
-
 		purgeRegistration();
 		updateCamera();
 		for (Actor a : actors) {
