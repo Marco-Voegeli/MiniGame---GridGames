@@ -3,11 +3,13 @@ package ch.epfl.cs107.play.game.enigme.actor.demo2;
 import java.util.Collections;
 import java.util.List;
 
+import ch.epfl.cs107.play.game.actor.Actor;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.AreaBehavior.Cell;
 import ch.epfl.cs107.play.game.areagame.actor.MovableAreaEntity;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
+import ch.epfl.cs107.play.game.enigme.Demo2Behavior;
 import ch.epfl.cs107.play.game.enigme.Demo2Behavior.Demo2CellType;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Button;
@@ -56,15 +58,14 @@ public class Demo2Player extends MovableAreaEntity {
 		// TODO Auto-generated method stub
 		demoSprite.draw(canvas);
 	}
-	 @Override
+
+	@Override
 	protected boolean move(int framesForMove) {
 		// TODO Auto-generated method stub
-		 this.getOwnerArea().getEnteringCells()
-		 if()
+		this.getOwnerArea().getEnteringCells((Actor)this).contains(somethinghere);
 		return super.move(framesForMove);
 	}
-	 
-	
+
 	@Override
 	public void update(float deltaTime) {
 		super.update(deltaTime);
