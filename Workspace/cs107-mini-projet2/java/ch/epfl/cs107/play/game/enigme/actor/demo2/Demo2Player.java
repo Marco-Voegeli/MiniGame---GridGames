@@ -10,6 +10,7 @@ import ch.epfl.cs107.play.game.areagame.actor.MovableAreaEntity;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.game.enigme.Demo2Behavior;
+import ch.epfl.cs107.play.game.enigme.Demo2Behavior.Demo2Cell;
 import ch.epfl.cs107.play.game.enigme.Demo2Behavior.Demo2CellType;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Button;
@@ -58,12 +59,14 @@ public class Demo2Player extends MovableAreaEntity {
 		// TODO Auto-generated method stub
 		demoSprite.draw(canvas);
 	}
-
+	public boolean cellType(Demo2CellType type, Demo2Cell cell){
+		return (cell.getDemo2CellType() == type);
+	}
 	@Override
 	protected boolean move(int framesForMove) {
 		// TODO Auto-generated method stub
-		this.getOwnerArea().getEnteringCells((Actor)this).contains(somethinghere);
-		return super.move(framesForMove);
+		Cell[][] mycells =this.getOwnerArea().getAreaBehavior().getCells();
+		return (cellType(Demo2CellType.DOOR,mycells);
 	}
 
 	@Override

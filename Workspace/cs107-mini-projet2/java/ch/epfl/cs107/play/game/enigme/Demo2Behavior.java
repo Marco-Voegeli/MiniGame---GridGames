@@ -30,6 +30,9 @@ public class Demo2Behavior extends AreaBehavior {
 			super(x, y);
 			this.cellType = cellType;
 		}
+		public Demo2CellType getDemo2CellType() {
+			return this.cellType;
+		}
 
 		@Override
 		public List<DiscreteCoordinates> getCurrentCells() {
