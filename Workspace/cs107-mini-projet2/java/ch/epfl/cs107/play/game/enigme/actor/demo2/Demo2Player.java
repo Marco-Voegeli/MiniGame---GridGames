@@ -6,11 +6,9 @@ import java.util.List;
 import ch.epfl.cs107.play.game.actor.Actor;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.AreaBehavior;
-import ch.epfl.cs107.play.game.areagame.AreaBehavior.Cell;
 import ch.epfl.cs107.play.game.areagame.actor.MovableAreaEntity;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
-import ch.epfl.cs107.play.game.enigme.Demo2Behavior;
 import ch.epfl.cs107.play.game.enigme.Demo2Behavior.Demo2Cell;
 import ch.epfl.cs107.play.game.enigme.Demo2Behavior.Demo2CellType;
 import ch.epfl.cs107.play.io.FileSystem;
@@ -80,6 +78,7 @@ public class Demo2Player extends MovableAreaEntity {
 	@Override
 	protected boolean move(int framesForMove) { // redefine
 		// TODO Auto-generated method stub;
+
 		actorAreaBehavior = getOwnerArea().getAreaBehavior();
 		if (getOwnerArea().getEnteringCells((Actor) this) == null) {
 			switch (direction) {
@@ -87,17 +86,21 @@ public class Demo2Player extends MovableAreaEntity {
 				setCurrentPosition(new Vector(getPosition().x, getPosition().y + framesForMove)); // UP
 				// currentPosition = getCurrentMainCellCoordinates();
 				direction = 0;
+				break;
 			case 2:
 				setCurrentPosition(new Vector(getPosition().x, getPosition().y - framesForMove)); // DOWN
 				direction = 0;
-
+				break;
 			case 3:
 				setCurrentPosition(new Vector(getPosition().x - framesForMove, getPosition().y)); // LEFT
 				direction = 0;
+				break;
 			case 4:
 				setCurrentPosition(new Vector(getPosition().x + framesForMove, getPosition().y));// RIGHT
 				direction = 0;
-
+				break;
+			default:
+				break;
 			}
 			return passingdoor;
 
