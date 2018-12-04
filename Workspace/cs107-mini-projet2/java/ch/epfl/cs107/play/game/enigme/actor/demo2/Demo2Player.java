@@ -13,6 +13,7 @@ import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.game.enigme.Demo2Behavior;
 import ch.epfl.cs107.play.game.enigme.Demo2Behavior.Demo2Cell;
 import ch.epfl.cs107.play.game.enigme.Demo2Behavior.Demo2CellType;
+import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Button;
 import ch.epfl.cs107.play.window.Canvas;
@@ -22,19 +23,20 @@ import ch.epfl.cs107.play.window.Window;
 public class Demo2Player extends MovableAreaEntity {
 
 	private boolean passingdoor = false;
-	private Window window;
 	private Sprite demoSprite;
 	private AreaBehavior actorAreaBehavior;
+	private FileSystem fileSystem;
+	private Canvas canvas;
 	/// Animation duration in frame number
 	private final static int ANIMATION_DURATION = 8;
 
 	public Demo2Player(Area area, Orientation orientation, DiscreteCoordinates position) {
 		super(area, orientation, position);
 		this.setOrientation(Orientation.DOWN);
-		demoSprite = new Sprite("ghost.1", 1, 1.f, this);
+		this.demoSprite = new Sprite("ghost.1", 1, 1.f, this);
 		
 	}
-
+	
 	public boolean isPassingdoor() {
 		return passingdoor;
 	}
@@ -63,8 +65,9 @@ public class Demo2Player extends MovableAreaEntity {
 
 	@Override
 	public void draw(Canvas canvas) {
-		// TODO Auto-generated method stub
-		demoSprite.draw(canvas);
+    	// TODO Auto-generated method stub
+		this.demoSprite.draw(canvas);
+		this.canvas= canvas;
 	}
 
 	public boolean cellType(Demo2CellType type, Demo2Cell cell) {
@@ -72,23 +75,30 @@ public class Demo2Player extends MovableAreaEntity {
 	}
 
 	@Override
-	protected boolean move(int framesForMove) {
+	protected boolean move(int framesForMove) { //redefine
 		// TODO Auto-generated method stub;
 		actorAreaBehavior = getOwnerArea().getAreaBehavior();
+		if(getOwnerArea().getEnteringCells((Actor)this)==null) {
+			
+			return passingdoor;
+			
+		}else {
+			
+		
 		List<DiscreteCoordinates> DClist = getOwnerArea().getEnteringCells((Actor)this);
 		for(DiscreteCoordinates a : DClist) {
 			if(cellType(Demo2CellType.DOOR,(Demo2Cell)actorAreaBehavior.getCell(a))){
 					passingdoor = true;
 					return passingdoor;
 			}
-		}
+		}}
 		return passingdoor;
 	}
 
 	@Override
 	public void update(float deltaTime) {
 		super.update(deltaTime);
-		Keyboard keyboard = window.getKeyboard();
+		Keyboard keyboard = ((Window) canvas).getKeyboard();
 		Button[] Arrows = { keyboard.get(Keyboard.UP), keyboard.get(Keyboard.DOWN), keyboard.get(Keyboard.LEFT),
 				keyboard.get(Keyboard.RIGHT) };
 

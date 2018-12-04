@@ -19,7 +19,9 @@ public class Demo2 extends AreaGame {
 
 	@Override
 	public boolean begin(Window window, FileSystem fileSystem) {
-		if (super.begin(window, fileSystem) == true) {
+		if (super.begin(window, fileSystem)) {
+			this.window = window;
+			this.fileSystem = fileSystem;
 
 //			Transform viewTransform = Transform.I.scaled(100).translated(new Vector(-5.5f, -5.5f));
 //			window.setRelativeTransform(viewTransform);
@@ -32,8 +34,11 @@ public class Demo2 extends AreaGame {
 			addArea(room1);
 			setCurrentArea(room0.getTitle(), false);
 			Demo2Player player1 = new Demo2Player(getCurrentArea(), Orientation.DOWN, new DiscreteCoordinates(5, 5));
-			
+			this.player1 = player1;
+			player1.draw(window);
+
 			getCurrentArea().setViewCandidate(player1);
+			player1.setOwnerArea(getCurrentArea());
 			return true;
 		}
 		return false;
@@ -42,7 +47,6 @@ public class Demo2 extends AreaGame {
 	@Override
 	public void update(float deltaTime) {
 		getCurrentArea().update(deltaTime);
-		player1.draw(window);
 		player1.update(deltaTime);
 		if (player1.isPassingdoor()) {
 			if (player1.getOwnerArea() == room0) {
