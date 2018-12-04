@@ -35,7 +35,6 @@ public class Demo2 extends AreaGame {
 			setCurrentArea(room0.getTitle(), false);
 			Demo2Player player1 = new Demo2Player(getCurrentArea(), Orientation.DOWN, new DiscreteCoordinates(5, 5));
 			this.player1 = player1;
-			player1.draw(window);
 
 			getCurrentArea().setViewCandidate(player1);
 			player1.setOwnerArea(getCurrentArea());
@@ -47,7 +46,10 @@ public class Demo2 extends AreaGame {
 	@Override
 	public void update(float deltaTime) {
 		getCurrentArea().update(deltaTime);
+		player1.draw(window);
 		player1.update(deltaTime);
+		//System.out.println(player1.getPosition());
+
 		if (player1.isPassingdoor()) {
 			if (player1.getOwnerArea() == room0) {
 				setCurrentArea(room1.getTitle(), false);
@@ -62,7 +64,7 @@ public class Demo2 extends AreaGame {
 	@Override
 	public int getFrameRate() {
 		// TODO Auto-generated method stub
-		return 60;
+		return 24;
 	}
 
 	@Override
