@@ -1,0 +1,9 @@
+Project2 - GridGames
+By: Roy Shoham's and Marco Vögeli's game.
+Coded on Eclipse in JAVA.
+-------------------------------------------
+Instructions:
+In order for the player to pickup an item press "L" 
+  - Make sure the orientation is corresponding to the object
+The keyboard is used to move around.
+To enter a room simply walk through
