@@ -1,17 +1,19 @@
-Collectable : contains the collect() method which removes the actor which has been picked up.
+Collectable: contains the collect() method which removes the actor which has been picked up.
 
-SignalRock : extends SwitchableActor, and we rewrote it's takeCellSpace() and draw(Canvas canvas) methods in order for the timer to work.
+SignalRock: extends SwitchableActor, and we rewrote it's takeCellSpace() and draw(Canvas canvas) methods so that the timer would work.
 
-Levers : We implemented Levers into SwitchableActors as they can be turned on and off and it will change their signal wether or not they are activated.
+Levers: We implemented Levers into SwitchableActors as they can be turned on and off and it will change their signal whether
+        they are activated or not.
 
-SwitchableActor : Here is where we define the Actors which have a signal, we also take 2 Strings in the constructor; 1st String is the "off" image and the 2nd is the "on" image. 
-We added a method: activate(), which has as a purpose to switch the SwitchableActor on and off.
+SwitchableActor: Here is where we define the Actors which have a signal, we also take 2 Strings in the constructor; 
+                 1st String is the "off" image and the 2nd is the "on" image. 
+                 We added a method: activate(), which has as a purpose to switch the SwitchableActor on and off.
 
-EnigmeArea : elDoorAdder() method : This method (initially defined as abstract) was added in order to be able to add Interactables into the Levels. It handles all the creation of new Interactables added in the specific method.
+EnigmeArea: elDoorAdder() method: This method (initially defined as abstract) was added in order to be able to add Interactables into the             Levels. It handles all the creation of new Interactables added in the specific method.
 
 FramesPerSecond was changed to 60 for aesthetic purposes.
 
-EnigmePlayer : In the method update() we made an array for the keys and created multiple methods for when an arrow is down.
-               In order to have the animations we made another setSprite(Orientation orientation) which sets the current sprite according to the orientation it is currently facing. In order for the animation to act we made a counter for each orientation so that when we walk in that direction the counter moves (range from 0-3) and the Sprite will change. At first we had a speed problem, the animations were moving too fast for the amount of cells displaced, so we had to add an extra counter in update which stalls the animation changes.
-               Another difficulty we had was when we cut the main image into it's corresponding action (using Region of Interest) was that the actor was not always in the center (image was shifted to the right or left of actual position) as well as the image was too small. Therefore to overcome this we had to scale the actors up and if required translate the images.
-               With the actor we had a slight difficulty as when the actor would step on a pressureSwitch it would activate and deactivate continuosly until the EnigmePlayer would step off. So we add an if statement checking if the actor was at the same position as the SwitchableActor and if it was on it before the previous update. And as soon as the player steps off it then the signal activates.
+EnigmePlayer: In the method update() we made an array for the keys and created multiple methods for when an arrow is down.
+              In order to have the animations we made another setSprite(Orientation orientation) which sets the current sprite according to the orientation it is currently facing. For the animation to react we made a counter for each orientation so that when we walk in that direction the counter moves (range from 0-3) and the Sprite will change. At first, we had a speed problem, the animations were moving too fast for the number of cells displaced, so we had to add an extra counter in update which stalls the animation changes.
+              Another difficulty we had was when we cut the main image into its corresponding action (using Region of Interest) was that the actor was not always in the centre (image was shifted to the right or left of actual position) as well as the image was too small. Therefore, to overcome this we had to scale the actors up and if required translate the images.
+              With the actor we had a slight difficulty as when the actor would step on a pressureSwitch it would activate and deactivate continuously until the EnigmePlayer would step off. So, we added an “if” statement checking if the actor was at the same position as the SwitchableActor and if it was on the pressureSwitch in the previous update(stepOn is true). And as soon as the player steps off it then the signal activates.
